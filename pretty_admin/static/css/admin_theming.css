@@ -60,6 +60,16 @@
     padding-left: 10px;
 }
 
+img.internal_link{
+    height: 13px;
+    display:none;
+}
+
+img.external_link{
+    height: 13px;
+    display:none;
+}
+
 svg.internal_link{
     height: 13px;
     fill: var(--main-color1);;
