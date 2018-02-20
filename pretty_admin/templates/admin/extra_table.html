@@ -1,0 +1,25 @@
+<div class="js-inline-admin-formset inline-group" id="userEvents">
+    <div class="tabular inline-related">
+        <fieldset class="module">
+            <h2>{{extra_table.title}}</h2>
+            <table>
+                <thead><tr>
+                    <th>#</th>
+                    {% for field in extra_table.head %}
+                        <th>{{field}}</th>
+                    {% endfor %}
+                </tr></thead>
+                <tbody>
+                    {% for line in extra_table.body %}
+                        <tr class="form-row {% cycle "row1" "row2" %}" style="white-space:pre-wrap ; word-wrap:break-word;">
+                            <td>{{forloop.counter}}</td>
+                        {% for value, allow_tags in line %}
+                            <td>{% if allow_tags %}{% autoescape off %}{{value}}{% endautoescape %}{% else %}{{value}}{% endif %}</td>
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>

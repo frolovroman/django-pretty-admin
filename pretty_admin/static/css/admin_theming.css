@@ -1,0 +1,211 @@
+/**
+ * theming styles
+ *
+ */
+:root {
+  --main-color1: #00ba88;
+  --main-color1-hover: #008e68;
+
+  --main-color2: #ffffff;
+  --main-color2-hover: #e0e0e0;
+
+  --error-color: #e54040;
+  --error-color-hover: #ba1d1d;
+
+  --input-color1: #2e5eaa;
+  --input-color1-hover: #264d8c;
+
+  --input-color2: #547bb9;
+  --input-color2-hover: #2e5eaa;
+}
+
+#content {
+    padding: 0;
+    margin: 15px;
+}
+
+#header {
+    background: var(--main-color1);
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#header #branding h1 {
+    margin: 0;
+    padding: 5px;
+    color: #ffffff;
+}
+#header #branding h1 a{
+    color: #ffffff;
+}
+
+#header #user-tools {
+    padding-right: 40px;
+    color: #ffffff;
+}
+
+#header #user-tools  a:hover{
+    color: #fff;
+    font-weight: bold;
+}
+
+#header #user-tools  strong{
+    color: #fff;
+}
+
+#bookmark-form {
+    clear: both;
+}
+.actions label {
+    padding-left: 10px;
+}
+
+svg.internal_link{
+    height: 13px;
+    fill: var(--main-color1);;
+}
+
+svg.external_link{
+    height: 13px;
+    fill: var(--main-color1);;
+}
+
+div.breadcrumbs {
+    display: block;
+    padding: 10px 15px;
+    border: 0;
+    background-position: 0 -8px;
+    border-bottom: 1px solid #ededed;
+    background: #ffffff;
+    color: var(--input-color1);
+
+}
+
+div.breadcrumbs a {
+    display: inline;
+    color: #313131;
+}
+
+div.breadcrumbs a:hover {
+    display: inline;
+    color: #313131;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.char_container{
+    margin: 5px auto;
+    min-width: 310px;
+    height: 400px;
+    max-width: 630px;
+}
+
+#header #branding h1 {
+    margin: 0;
+    padding: 5px;
+    color: #ffffff;
+}
+
+.module h2, .module caption, .inline-group h2{
+    background: var(--main-color2);
+    border: 1px solid #e5e5e5;
+    color: #3d3d3d;
+}
+
+.delete-confirmation form .cancel-link{
+    background-color: var(--main-color2);
+    border: 1px solid #e5e5e5;
+    color: #3d3d3d;
+}
+
+.delete-confirmation form .cancel-link:hover{
+    background-color: var(--main-color2-hover);
+    border: 1px solid #e5e5e5;
+    color: #3d3d3d;
+}
+
+.delete-confirmation form input[type="submit"]{
+    background: var(--error-color);
+}
+.delete-confirmation form input[type="submit"]:hover{
+    background: var(--error-color-hover);
+}
+
+.submit-row a.deletelink{
+    background: var(--error-color);
+}
+
+.submit-row a.deletelink:hover{
+    background: var(--error-color-hover);
+}
+
+.button.default, input[type=submit].default, .submit-row input.default{
+    background: var(--input-color1);
+}
+
+.button.default:hover, input[type=submit].default:hover, .submit-row input.default:hover{
+    background: var(--input-color1-hover);
+}
+
+.button.main input[type=submit].main, .submit-row input.main{
+    background: var(--main-color1);
+}
+
+.button.main:hover, input[type=submit].main:hover, .submit-row input.main:hover{
+    background: var(--main-color1-hover);
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button{
+    background: var(--input-color2);
+}
+.button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover, a.button:hover{
+    background: var(--input-color2-hover);
+}
+a:link, a:visited{
+    color: var(--input-color1);
+}
+
+
+.object-tools a:link, .object-tools a:visited {
+    background-color: var(--main-color1);
+    color: #fff;
+}
+
+.object-tools a:focus, .object-tools a:hover {
+    background-color: var(--main-color1-hover);
+}
+
+.messagelist .success a{
+    color: var(--error-color);
+}
+
+.messagelist .success a:hover{
+    color: var(--error-color);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.calendar caption, .calendarbox h2{
+    color: #fff;
+}
+.calendar td.selected a{
+    background: var(--main-color2);
+    color: #3d3d3d;
+}
+
+.dashboard-module h2{
+    background: var(--main-color2);
+    color: #3d3d3d;
+}
+
+.dashboard-module{
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl{
+    border-top-left-radius: 0;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr{
+    border-top-right-radius: 0;
+}

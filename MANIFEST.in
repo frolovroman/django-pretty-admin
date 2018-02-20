@@ -1,0 +1,5 @@
+include LICENSE
+include README.rst
+include requirements.txt
+recursive-include pretty_admin/static *
+recursive-include pretty_admin/templates *
