@@ -194,7 +194,7 @@ a:link, a:visited{
     text-decoration: underline;
 }
 
-.calendarbox calendarbox{
+.calendarbox caption{
     background: var(--main-color1);
     color: #fff;
 }
