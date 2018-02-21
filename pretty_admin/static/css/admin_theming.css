@@ -207,6 +207,15 @@ a:link, a:visited{
     color: #fff;
 }
 
+.calendar td.selected a:hover{
+    background: #e0e0e0;
+    color: #313131;
+}
+
+.calendar td a:focus, .timelist a:focus, .calendar td a:hover, .timelist a:hover{
+    background: var(--main-color2-hover);
+}
+
 .dashboard-module h2{
     background: var(--main-color2);
     color: #3d3d3d;
