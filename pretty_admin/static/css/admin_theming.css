@@ -201,8 +201,8 @@ a:link, a:visited{
 .calendar caption, .calendarbox h2{
     color: #fff;
 }
-.calendar td.selected a{
-    background: var(--main-color2);
+.calendar td.selected{
+    background: var(--main-color2-hover);
     color: #3d3d3d;
 }
 
