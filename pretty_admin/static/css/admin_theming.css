@@ -194,6 +194,10 @@ a:link, a:visited{
     text-decoration: underline;
 }
 
+.calendarbox caption{
+    color: #fff;
+}
+
 .calendar caption, .calendarbox h2{
     color: #fff;
 }
