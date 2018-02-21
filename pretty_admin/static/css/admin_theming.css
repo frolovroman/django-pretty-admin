@@ -202,9 +202,9 @@ a:link, a:visited{
 .calendar caption, .calendarbox h2{
     color: #fff;
 }
-.calendar td.selected{
-    background: var(--main-color2-hover);
-    color: #3d3d3d;
+.calendar td.selected a{
+    background: var(--main-color1-hover);
+    color: #fff;
 }
 
 .dashboard-module h2{
