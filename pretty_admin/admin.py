@@ -3,6 +3,7 @@ from django.contrib.admin.filters import AllValuesFieldListFilter, RelatedFieldL
     ChoicesFieldListFilter
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponseBase
+from django.urls import reverse
 
 
 class DropdownFilter(AllValuesFieldListFilter):
@@ -17,7 +18,28 @@ class RelatedDropdownFilter(RelatedFieldListFilter):
     template = 'admin/dropdown_filter.html'
 
 
-class AdminModelExtraTable(object):
+class AdminLinkBase(object):
+
+    @staticmethod
+    def external_link(url, text, target='_blank'):
+        return u"<a target='{target}' class='external_link' href='{url}'><img src='/static/pretty_admin/img/external-link.svg' class='svg external_link'></img> {text} </a>" \
+            .format(url=url, text=text, target=target)
+
+    @staticmethod
+    def internal_link(url, text, target='_blank'):
+        return u"<a target='{target}' class='internal_link' href='{url}'><img src='/static/pretty_admin/img/internal-link.svg' class='svg internal_link'></img> {text} </a>" \
+            .format(url=url, text=text, target=target)
+
+    @staticmethod
+    def admin_edit_url(instance):
+        return reverse("admin:%s_%s_change" %
+                       (instance._meta.app_label, instance._meta.model_name), args=(instance.pk,))
+
+    def admin_edit_link(self, instance, url_text="Edit"):
+        return self.internal_link(self.admin_edit_url(instance), url_text)
+
+
+class AdminModelExtraTable(AdminLinkBase):
     title = None
     head = []
     body = []
@@ -25,7 +47,7 @@ class AdminModelExtraTable(object):
     queryset = None
     ordering = ()
     limit = None
-    fields = ()
+    fields = ('admin_edit', '__str__')
     template = 'admin/extra_table.html'
 
     def __init__(self):
@@ -58,8 +80,11 @@ class AdminModelExtraTable(object):
                 field_method = getattr(self, field)
                 title = getattr(field_method, 'short_description', str(field))
             else:
-                f = self.model._meta.get_field(field)
-                title = f.verbose_name or f.name
+                try:
+                    f = self.model._meta.get_field(field)
+                    title = f.verbose_name or f.name
+                except:
+                    title = field
             head.append(title)
         return head
 
@@ -86,6 +111,11 @@ class AdminModelExtraTable(object):
                 value = getattr(obj, field)
 
         return value, allow_tags
+
+    def admin_edit(self, obj):
+        return self.admin_edit_link(obj, obj.id)
+    admin_edit.short_description = 'Admin Edit'
+    admin_edit.allow_tags = True
 
 
 class AdminRelatedModelExtraTable(AdminModelExtraTable):
@@ -119,14 +149,14 @@ class AdminRelatedModelExtraTable(AdminModelExtraTable):
             return self.model.objects.none()
 
 
-class BaseModelAdmin(admin.ModelAdmin):
+class BaseModelAdmin(AdminLinkBase, admin.ModelAdmin):
     save_on_bottom = True
     change_view_actions = []
     related_models_links = []
     change_form_extra_tables = []
 
     class Media:
-        js = ('js/svg.js', )
+        js = ('pretty_admin/js/svg.js', )
 
     def __init__(self, model, admin_site):
         self.set_related_models_links(model)
@@ -138,10 +168,9 @@ class BaseModelAdmin(admin.ModelAdmin):
         if obj:
             for extra_table in self.change_form_extra_tables:
                 if issubclass(extra_table, AdminRelatedModelExtraTable):
-                    extra_table_instance = extra_table(obj=obj)
+                    extra_tables.append(extra_table(obj=obj))
                 else:
-                    extra_table_instance = extra_table()
-                extra_tables.append(extra_table_instance)
+                    extra_tables.append(extra_table())
         return extra_tables
 
     def get_readonly_fields(self, request, obj=None):
@@ -163,8 +192,7 @@ class BaseModelAdmin(admin.ModelAdmin):
         def get_link(obj):
             instance = getattr(obj, field_name)
             if instance:
-                name = str(instance)
-                return instance.admin_edit_link(name)
+                return self.admin_edit_link(str(instance))
             return '-'
 
         method = get_link
