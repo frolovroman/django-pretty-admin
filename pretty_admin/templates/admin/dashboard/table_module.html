@@ -1,0 +1,34 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% block module_content %}
+{% if module.children %}
+<div style="overflow-x: auto; width: auto;">
+    <table style="width: 100%;">
+        <thead>
+            <tr>
+                {% with module.children|first as header %}
+                {% for header in header %}
+                <th scope="col">
+                    <div class="text"><span style="padding: 4px 6px;">{{ header|capfirst }}</span></div>
+                    <div class="clear"></div>
+                </th>
+                {% endfor %}
+                {% endwith %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in module.children %}
+            {% if not forloop.first %}
+            <tr class="{% cycle 'row1' 'row2' %}">
+                {% for value in line %}
+                    <td style="padding-left: 20px; text-align: left;">
+                        {{value}}
+                    </td>
+                {% endfor %}
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

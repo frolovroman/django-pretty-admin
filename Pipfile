@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
+ipython = "*"
 
 [packages]
 django-admin-tools = "==0.8.1"

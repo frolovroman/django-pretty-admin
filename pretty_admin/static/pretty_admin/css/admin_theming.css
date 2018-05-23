@@ -31,10 +31,11 @@
 }
 
 #header #branding h1 {
-    margin: 0;
-    padding: 5px;
+    margin: 0 !important;
+    padding: 0 0 0 15px !important;
     color: #ffffff;
 }
+
 #header #branding h1 a{
     color: #ffffff;
 }
@@ -107,12 +108,6 @@ div.breadcrumbs a:hover {
     min-width: 310px;
     height: 400px;
     max-width: 630px;
-}
-
-#header #branding h1 {
-    margin: 0;
-    padding: 5px;
-    color: #ffffff;
 }
 
 .module h2, .module caption, .inline-group h2{

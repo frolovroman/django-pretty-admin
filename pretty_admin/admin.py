@@ -1,9 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+from inspect import signature
+from django.urls import reverse
 from django.contrib import admin
-from django.contrib.admin.filters import AllValuesFieldListFilter, RelatedFieldListFilter, \
-    ChoicesFieldListFilter
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponseBase
-from django.urls import reverse
+from django.contrib.admin.filters import AllValuesFieldListFilter, RelatedFieldListFilter, ChoicesFieldListFilter
 
 
 class DropdownFilter(AllValuesFieldListFilter):
@@ -22,12 +23,16 @@ class AdminLinkBase(object):
 
     @staticmethod
     def external_link(url, text, target='_blank'):
-        return u"<a target='{target}' class='external_link' href='{url}'><img src='/static/pretty_admin/img/external-link.svg' class='svg external_link'></img> {text} </a>" \
+        return u"<a target='{target}' class='external_link' href='{url}'>" \
+               u"<img src='/static/pretty_admin/img/external-link.svg' class='svg external_link'></img> " \
+               u"{text} </a>" \
             .format(url=url, text=text, target=target)
 
     @staticmethod
     def internal_link(url, text, target='_blank'):
-        return u"<a target='{target}' class='internal_link' href='{url}'><img src='/static/pretty_admin/img/internal-link.svg' class='svg internal_link'></img> {text} </a>" \
+        return u"<a target='{target}' class='internal_link' href='{url}'>" \
+               u"<img src='/static/pretty_admin/img/internal-link.svg' class='svg internal_link'></img> " \
+               u"{text} </a>" \
             .format(url=url, text=text, target=target)
 
     @staticmethod
@@ -73,11 +78,22 @@ class AdminModelExtraTable(AdminLinkBase):
             self.queryset = self.queryset[:self.limit]
         return self.queryset
 
+    def get_overridden_method(self, field):
+        if hasattr(self, field):
+            field_method = getattr(self, field)
+            if not callable(field_method):
+                return None
+            sig = signature(field_method)
+            if not sig or len(sig.parameters) != 1:
+                return None
+            return field_method
+        return None
+
     def get_head(self):
         head = []
         for field in self.fields:
-            if hasattr(self, field):
-                field_method = getattr(self, field)
+            field_method = self.get_overridden_method(field)
+            if field_method:
                 title = getattr(field_method, 'short_description', str(field))
             else:
                 try:
@@ -96,8 +112,8 @@ class AdminModelExtraTable(AdminLinkBase):
 
     def get_field_value(self, field, obj):
         allow_tags = False
-        if hasattr(self, field):
-            field_method = getattr(self, field)
+        field_method = self.get_overridden_method(field)
+        if field_method:
             allow_tags = getattr(field_method, 'allow_tags', False)
             try:
                 value = field_method(obj)
@@ -109,6 +125,8 @@ class AdminModelExtraTable(AdminLinkBase):
                 value = getattr(obj, display_method_name)()
             else:
                 value = getattr(obj, field)
+        if callable(value):
+            value = value()
 
         return value, allow_tags
 
@@ -192,7 +210,7 @@ class BaseModelAdmin(AdminLinkBase, admin.ModelAdmin):
         def get_link(obj):
             instance = getattr(obj, field_name)
             if instance:
-                return self.admin_edit_link(str(instance))
+                return self.admin_edit_link(instance, str(instance))
             return '-'
 
         method = get_link
