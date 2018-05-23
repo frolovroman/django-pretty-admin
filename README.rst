@@ -9,7 +9,7 @@ Fully based on `Django Admin Tools <https://github.com/django-admin-tools/django
 Installation
 -----------
 
-Add pretty_admin and admin_tools to your INSTALLED_APPS setting::
+1. Add pretty_admin and admin_tools to your INSTALLED_APPS setting. Put the admin_tools modules before the django.contrib.admin module!::
 
     INSTALLED_APPS = (
         'admin_tools',
@@ -23,7 +23,6 @@ Add pretty_admin and admin_tools to your INSTALLED_APPS setting::
         # ...other installed applications...
     )
 
-Put the admin_tools modules before the django.contrib.admin module!
 
 2. Add django-admin-tools to your urls.py file::
 
