@@ -1,6 +1,7 @@
-from pretty_admin.dashboard import PrettyIndexDashboard, InstanceList
 from django.utils.translation import ugettext_lazy as _
 from admin_tools.dashboard import modules
+from pretty_admin.dashboard import PrettyIndexDashboard, InstanceList
+
 from myapp.models import MyModel, RelatedModel
 
 

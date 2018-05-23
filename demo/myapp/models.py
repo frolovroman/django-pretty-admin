@@ -1,7 +1,5 @@
 from django.db import models
 
-statuses = [(str(ind), "Status {}".format(ind)) for ind in range(14)]
-
 
 class MyModel(models.Model):
     STATUSES = [(str(ind), "Status {}".format(ind)) for ind in range(14)]

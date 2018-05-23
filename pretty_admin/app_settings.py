@@ -13,16 +13,3 @@ THEMING_CSS_KEY = 'ADMIN_TOOLS_THEMING_CSS'
 THEMING_CSS_DEFAULT = 'pretty_admin/css/admin_theming.css'
 ADMIN_TOOLS_THEMING_CSS = getattr(settings, THEMING_CSS_KEY, THEMING_CSS_DEFAULT)
 
-
-def patch_project_settings():
-    setattr(settings, INDEX_DASHBOARD_KEY, ADMIN_TOOLS_INDEX_DASHBOARD)
-    setattr(settings, APP_INDEX_DASHBOARD_KEY, ADMIN_TOOLS_APP_INDEX_DASHBOARD)
-    setattr(settings, THEMING_CSS_KEY, ADMIN_TOOLS_THEMING_CSS)
-
-    installed_apps = getattr(settings, 'INSTALLED_APPS', [])
-    admin_tools_apps = ['admin_tools.theming', 'admin_tools.menu', 'admin_tools.dashboard', 'admin_tools']
-    for admin_app in admin_tools_apps:
-        if not admin_app in installed_apps:
-            installed_apps = [admin_app, ] + installed_apps
-
-
