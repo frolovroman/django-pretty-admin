@@ -9,7 +9,7 @@ Fully based on `Django Admin Tools <https://github.com/django-admin-tools/django
 Installation
 -----------
 
-Add Pretty admin and admin_tools to your INSTALLED_APPS setting::
+Add pretty_admin and admin_tools to your INSTALLED_APPS setting::
 
     INSTALLED_APPS = (
         'admin_tools',
@@ -24,6 +24,7 @@ Add Pretty admin and admin_tools to your INSTALLED_APPS setting::
     )
 
 Put the admin_tools modules before the django.contrib.admin module!
+
 2. Add django-admin-tools to your urls.py file::
 
     urlpatterns = patterns('',
@@ -33,13 +34,14 @@ Put the admin_tools modules before the django.contrib.admin module!
 
 
 3. Include django.contrib.staticfiles.finders.AppDirectoriesFinder into in your STATICFILES_FINDERS
-4. Confing TEMPLATES:
+4. Confing TEMPLATES
 
-    Include pretty_admin/templates/ into DIRS
+    * Include pretty_admin/templates/ into DIRS
 
-    Set APP_DIRS=False
+    * Set APP_DIRS=False
 
-    Add 'admin_tools.template_loaders.Loader' to loaders
+    * Add 'admin_tools.template_loaders.Loader' to loaders
+
 5. In the end of the settings.py add::
 
     from pretty_admin.app_settings import *
