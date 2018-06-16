@@ -55,5 +55,5 @@ Try demo::
     cd demo
     pip3 install git+https://github.com/frolovroman/django-pretty-admin
     python manage.py migrate
-    python manage.py loaddata fixtyres/dump.jspm
+    python manage.py loaddata fixtyres/dump.jsom
     python manage.py runserver
