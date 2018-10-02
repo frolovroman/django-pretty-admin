@@ -61,6 +61,18 @@
     padding-left: 10px;
 }
 
+select{
+    min-width: 100px;
+}
+
+.module{
+    margin-bottom: 10px;
+}
+
+fieldset.module > .form-row:last-of-type{
+    border-bottom: none;
+}
+
 img.internal_link{
     height: 13px;
     display:none;

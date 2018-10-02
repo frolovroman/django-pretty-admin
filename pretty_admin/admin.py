@@ -191,7 +191,8 @@ class BaseModelAdmin(AdminLinkBase, admin.ModelAdmin):
 
     def __init__(self, model, admin_site):
         self.set_related_models_links(model)
-        self.save_on_bottom = not self.save_on_top
+        if not self.save_on_bottom and not self.save_on_top:
+            self.save_on_bottom = True
         super(BaseModelAdmin, self).__init__(model, admin_site)
 
     def get_extra_tables(self, obj=None):
@@ -213,7 +214,6 @@ class BaseModelAdmin(AdminLinkBase, admin.ModelAdmin):
     def set_related_models_links(self, model):
         for field_name in self.related_models_links:
             field = model._meta.get_field(field_name)
-
             method = self.get_related_model_edit_link(field_name, field)
             method.short_description = field.verbose_name or field.name
             method.allow_tags = True
@@ -233,10 +233,11 @@ class BaseModelAdmin(AdminLinkBase, admin.ModelAdmin):
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         change_view_actions_choices = [choice for choice in self.get_action_choices(request, [])
                                        if choice[0] in self.change_view_actions]
-        context.update({'save_on_bottom': self.save_on_bottom,
-                        'change_view_actions_choices': change_view_actions_choices,
-                        "extra_tables": self.get_extra_tables(obj)})
-        return super(BaseModelAdmin, self).render_change_form(request, context, add=False, change=False, form_url='', obj=None)
+        context.update({
+            'save_on_bottom': self.save_on_bottom,
+            'change_view_actions_choices': change_view_actions_choices,
+            "extra_tables": self.get_extra_tables(obj)})
+        return super().render_change_form(request, context, add, change, form_url, obj)
 
     def response_post_save_change(self, request, obj):
         if '_make_action' in request.POST:
