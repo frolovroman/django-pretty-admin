@@ -93,7 +93,7 @@ class InstanceList(AdminLinkBase, modules.DashboardModule):
     def check_permissions(self, request):
         if not request.user:
             return False
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return False
         return request.user.has_module_perms(self.model._meta.app_label)
 

@@ -8,11 +8,11 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-pretty-admin',
-    version='0.0.2',
+    version='0.0.3',
     packages=find_packages(exclude=('demo', )),
     install_requires=[
         "django-admin-tools==0.8.1",
-        "Django<2.0",
+        "Django>2.0",
     ],
     include_package_data=True,
     license='BSD License',
@@ -24,7 +24,7 @@ setup(
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
-        'Framework :: Django :: 1.11',
+        'Framework :: Django :: 2',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',

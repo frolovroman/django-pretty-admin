@@ -1,10 +1,14 @@
 from __future__ import absolute_import, unicode_literals
 
 from inspect import signature
+
+from django import forms
+from django.db import models
 from django.urls import reverse
 from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponseBase
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.admin.filters import AllValuesFieldListFilter, RelatedFieldListFilter, ChoicesFieldListFilter
 
 
@@ -173,6 +177,14 @@ class BaseModelAdmin(AdminLinkBase, admin.ModelAdmin):
     change_view_actions = []
     related_models_links = []
     change_form_extra_tables = []
+
+    formfield_overrides = {
+        models.BooleanField: {'widget': forms.Select(choices=[(True, _('Yes')),
+                                                              (False, _('No'))])},
+        models.NullBooleanField: {'widget': forms.Select(choices=[(True, _('Yes')),
+                                                                  (False, _('No')),
+                                                                  (None, _('-----'))])}
+    }
 
     class Media:
         js = ('pretty_admin/js/svg.js', )
