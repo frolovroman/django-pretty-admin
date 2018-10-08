@@ -38,7 +38,7 @@ class AdminLinkBase(object):
         return mark_safe(link)
 
     @staticmethod
-    def internal_link(url, text, target='_blank'):
+    def internal_link(url, text, target='_self'):
         link = "<a target='{target}' class='internal_link' href='{url}'>" \
                "<img src='/static/pretty_admin/img/internal-link.svg' class='svg internal_link'></img> " \
                "{text} </a>" \
