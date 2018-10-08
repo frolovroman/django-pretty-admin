@@ -6,10 +6,13 @@ from django import forms
 from django.db import models
 from django.urls import reverse
 from django.contrib import admin
+from django.contrib.admin.filters import AllValuesFieldListFilter, RelatedFieldListFilter, ChoicesFieldListFilter
+
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponseBase
+
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.admin.filters import AllValuesFieldListFilter, RelatedFieldListFilter, ChoicesFieldListFilter
 
 
 class DropdownFilter(AllValuesFieldListFilter):
@@ -28,17 +31,19 @@ class AdminLinkBase(object):
 
     @staticmethod
     def external_link(url, text, target='_blank'):
-        return u"<a target='{target}' class='external_link' href='{url}'>" \
-               u"<img src='/static/pretty_admin/img/external-link.svg' class='svg external_link'></img> " \
-               u"{text} </a>" \
+        link = "<a target='{target}' class='external_link' href='{url}'>" \
+               "<img src='/static/pretty_admin/img/external-link.svg' class='svg external_link'></img> " \
+               "{text} </a>" \
             .format(url=url, text=text, target=target)
+        return mark_safe(link)
 
     @staticmethod
     def internal_link(url, text, target='_blank'):
-        return u"<a target='{target}' class='internal_link' href='{url}'>" \
-               u"<img src='/static/pretty_admin/img/internal-link.svg' class='svg internal_link'></img> " \
-               u"{text} </a>" \
+        link = "<a target='{target}' class='internal_link' href='{url}'>" \
+               "<img src='/static/pretty_admin/img/internal-link.svg' class='svg internal_link'></img> " \
+               "{text} </a>" \
             .format(url=url, text=text, target=target)
+        return mark_safe(link)
 
     @staticmethod
     def admin_edit_url(instance):
@@ -208,7 +213,7 @@ class BaseModelAdmin(AdminLinkBase, admin.ModelAdmin):
     def get_readonly_fields(self, request, obj=None):
         fields = super(BaseModelAdmin, self).get_readonly_fields(request, obj)
         fields = tuple(set(list(fields) + ["{}_link".format(str(field_name))
-                                          for field_name in self.related_models_links]))
+                                           for field_name in self.related_models_links]))
         return fields
 
     def set_related_models_links(self, model):
