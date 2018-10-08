@@ -1,4 +1,4 @@
-from pretty_admin.admin import AdminLinkBase
+from .base import AdminLinkBase
 from inspect import signature
 
 
