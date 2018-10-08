@@ -207,7 +207,7 @@ class BaseModelAdmin(AdminLinkBase, admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         fields = super(BaseModelAdmin, self).get_readonly_fields(request, obj)
-        fields = list(set(list(fields) + ["{}_link".format(str(field_name))
+        fields = tuple(set(list(fields) + ["{}_link".format(str(field_name))
                                           for field_name in self.related_models_links]))
         return fields
 
