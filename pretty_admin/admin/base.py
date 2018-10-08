@@ -10,8 +10,6 @@ from django.http.response import HttpResponseBase
 
 from django.utils.translation import ugettext_lazy as _
 
-from .extra_table import AdminRelatedModelExtraTable
-
 
 class AdminLinkBase(object):
 
@@ -64,6 +62,7 @@ class BaseModelAdmin(AdminLinkBase, admin.ModelAdmin):
         super(BaseModelAdmin, self).__init__(model, admin_site)
 
     def get_extra_tables(self, obj=None):
+        from .extra_table import AdminRelatedModelExtraTable
         extra_tables = []
         if obj:
             for extra_table in self.change_form_extra_tables:
