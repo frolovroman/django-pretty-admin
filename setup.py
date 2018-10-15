@@ -12,7 +12,7 @@ setup(
     packages=find_packages(exclude=('demo', )),
     install_requires=[
         "django-admin-tools==0.8.1",
-        "Django>2.0",
+        "Django>=1.11",
     ],
     include_package_data=True,
     license='BSD License',
